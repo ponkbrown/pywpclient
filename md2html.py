@@ -1,7 +1,15 @@
 #! /usr/bin/env python3
-
 # -*- coding: utf-8 -*-
 
+#Un modulo para el pequeño cliente de consola para blogs, sobre todo wordpress
+#contiene las funciones:
+#    existe() el cual devuelve 0 si el argumento que le pasaste no es un archivo existente
+#        y si existe regresa el objeto de el archivo avierto para lectura
+#
+#    conviertehtml(s) Esta funcion obtiene el texto (s) y regresa el texto convertido a html,
+#        si el primer caracter de el texto que no sea blank no es "#" imprime un aviso
+# 
+# Tue Dec 22 12:03:41 MST 2015
 
 import sys
 import markdown
@@ -20,18 +28,20 @@ def existe(file):
 
 def conviertehtml(md):
     ''' Recibe texto y sin hacer pruebas lo convierte de markdown a html5, (avisa nomas si el primer parrafo no es titulo) '''
+    if md.strip().splitlines()[0].strip()[0] != "#":
+        print("Parece que la primer linea del archivo no es un titulo!!")
     html = markdown.markdown(md)
     return html
 
     
-for file in argumentos:
-    post = existe(file)
-    if post != 0:
-        text = post.read()
-        html = conviertehtml(text)
-        print(html)
-        post.close()
+if __name__ == "__main__":
 
-
-
-
+    # cuando lo ejecutas desde linea de comandos verifica que cada argumento sea un archivo valido
+    # y si es, lo convierte a html y lo imprime a pantalla
+    for file in argumentos:
+        post = existe(file)
+        if post != 0:
+            text = post.read()
+            html = conviertehtml(text)
+            print(html)
+            post.close()
