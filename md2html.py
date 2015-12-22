@@ -30,6 +30,7 @@ for file in argumentos:
         text = post.read()
         html = conviertehtml(text)
         print(html)
+        post.close()
 
 
 
