@@ -24,15 +24,31 @@ def existe(file):
         return myfile
     except IOError:
         print ('No se puede abrir el archivo!')
-        return 0
+        return False
 
 def conviertehtml(md):
     ''' Recibe texto y sin hacer pruebas lo convierte de markdown a html5, (avisa nomas si el primer parrafo no es titulo) '''
-    if md.strip().splitlines()[0].strip()[0] != "#":
-        print("Parece que la primer linea del archivo no es un titulo!!")
     html = markdown.markdown(md)
     return html
 
+def sacaTitulo(texto):
+    ''' Busca un titulo dentro de el archivo md. las lineas que empiezan con "#" tienen precedencia (despues "##" etc) y despues la que este al principio del archivo, y regresa una cadena que sera el titulo'''
+    titulo = ''
+    lineas = texto.splitlines()
+
+    if texto.strip().splitlines()[0].strip()[0] != "#":
+        print("Parece que la primer linea del archivo no es un titulo!!")
+
+    for linea in lineas[::-1]:
+        if linea.strip().startswith('#'):
+            titulo = linea.lstrip('#').strip()
+            borra = linea
+            found = True
+    if found:
+        lineas.remove(borra)
+    contenido = '\n'.join(lineas).strip()
+
+    return (titulo, contenido)
     
 if __name__ == "__main__":
 
@@ -42,6 +58,8 @@ if __name__ == "__main__":
         post = existe(file)
         if post != 0:
             text = post.read()
-            html = conviertehtml(text)
+            titulo, contenido = sacaTitulo(text)
+            html = conviertehtml(contenido)
+
             print(html)
             post.close()
