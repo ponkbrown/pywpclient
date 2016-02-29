@@ -12,7 +12,7 @@ from wordpress_xmlrpc import WordPressPost
 get_files = sys.argv[1:]
 
 # creamos el objeto wordpress
-poodle = Client('http://BLOGADDRESS/xmlrpc.php', 'user', 'password')
+poodle = Client('http://ponkbrown.com/POODLE/xmlrpc.php', 'poodle', '099eo3')
 posts = poodle.call(GetPosts())
 
 for file in get_files:
