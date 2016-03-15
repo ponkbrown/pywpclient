@@ -7,5 +7,6 @@ cliente de python para publicar post en wordpress
 * ~~que corra desde consola~~
 * ~~que soporte markdown~~
 * que actualize varios blogs
+* que tenga un archivo de configuración
 
 
